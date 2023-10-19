@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - Revistas Científicas</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <div id="botontitulo">
+            <h1><a href="homeweb.html">Revistas Científicas Uleam</a></h1>
+        </div>
+        <div id="navegacion">
+            <nav>
+                <ul>
+                    <li><a href="revistas.html">Revistas</a></li>
+                    <li><a href="registro.html">Registrate</a></li>
+                    <li><a href="login.html">Log in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="loginblock">
+        <h2>Iniciar Sesión</h2>
+        <div id="logimg">
+           <img src="log.png" alt="imagen log"> 
+        </div>
+        <div class="form">
+            <input type="email" id="email" placeholder="Email">
+            <p id="emailError" class="warnings"></p> 
+            <input type="password" id="password" placeholder="Contraseña">
+            <p id="passwordError" class="warnings"></p> 
+            <button onclick="login()" id="login-button" class="cta-button">Iniciar Sesión</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy;<strong>2023 Universidad Laica Eloy Alfaro de Manabí. Todos los derechos reservados.</strong></p>
+    </footer>
+
+    <script>
+            function login() {
+            document.getElementById("emailError").textContent="";
+            document.getElementById("passwordError").textContent="";
+
+            const email = document.getElementById("email").value
+            const pass = document.getElementById("password").value
+
+            
+        
+            if(email === "" || password === ""){
+               document.getElementById("passwordError").textContent="Ingrese un email y una contraseña"
+            } else {
+                if(email != "email@gmail.com" && password != "1234"){
+                    document.getElementById("passwordError").textContent="El email o la contraseña están mal"
+                }
+            }
+
+            if(document.getElementById("email").value === "email@gmail.com" && document.getElementById("password").value === "1234") {
+                window.location.href = "./perfil.html"
+            } /*else {
+                if(document.getElementById("email").value === "" && document.getElementById("password").value === ""){
+                    alert("Ingrese un correo o una contraseña.");
+                } else {
+                    alert("El correo o la contraseña está incorrecta");
+                    
+                }
+            }*/
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de revistas - Revistas Científicas</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body id="bodygestion">
+    <header>
+        <div id="botontitulo">
+            <h1><a href="homeweb.html">Revistas Científicas Uleam</a></h1>
+        </div>
+        <div id="navegacion">
+            <nav>
+                <ul>
+                    <li><a href="revistas.html">Revistas</a></li>
+                    <li><a href="perfil.html">Mi Perfil</a></li>
+                    <li><a href="login.html">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="formulario-creacion">
+        <h2>Crear una nueva revista</h2>
+        <form onsubmit="return validarFormulario()">
+            <label for="nombreRevista">Nombre de la revista:</label>
+            <input type="text" id="nombreRevista" required>
+            <span id="nombreRevistaError" class="error"></span>
+    
+            <label for="areaConocimiento">Área de Conocimiento:</label>
+            <select id="areaConocimiento" onchange="mostrarSubareas()">
+                <option value="seleccionar">Seleccionar</option>
+                <option value="programas">Programas Genéricos y Calificaciones</option>
+                <option value="educacion">Educación</option>
+                <option value="artes">Artes y Humanidades</option>
+                <option value="ciencias">Ciencias Sociales - Periodismo e Información</option>
+                <option value="administracion">Administración, Negocios y Legislación</option>
+            </select>
+            <span id="areaConocimientoError" class="error"></span>
+    
+            <div id="programasSubarea" class="subarea" style="display: none;">
+                <label for="subareaProgramas">Subárea de Programas Genéricos y Calificaciones:</label>
+                <select id="subareaProgramas">
+                    <option value="seleccionar">Seleccionar</option>
+                    <option value="programas">Programas y cualificaciones básicas</option>
+                    <option value="programas">Alfabetización y aritmética</option>
+                    <option value="programas">Desarrollo y habilidades personales</option>
+                </select>
+            </div>
+    
+            <div id="educacionSubarea" class="subarea" style="display: none;">
+                <label for="subareaEducacion">Subárea de Educación:</label>
+                <select id="subareaEducacion">
+                    <option value="seleccionar">Seleccionar</option>
+                    <option value="programas">Educación</option>
+                </select>
+            </div>
+    
+            <div id="artesSubarea" class="subarea" style="display: none;">
+                <label for= "subareaArtes">Subárea de Artes y Humanidades:</label>
+                <select id="subareaArtes">
+                    <option value="seleccionar">Seleccionar</option>
+                    <option value="seleccionar">Artes</option>
+                    <option value="seleccionar">Humanidades (excepto idiomas)</option>
+                    <option value="seleccionar">Idiomas</option>
+                </select>
+            </div>
+    
+            <div id="cienciasSubarea" class="subarea" style="display: none;">
+                <label for="subareaCiencias">Subárea de Ciencias Sociales - Periodismo e Información:</label>
+                <select id="subareaCiencias">
+                    <option value="seleccionar">Seleccionar</option>
+                    <option value="seleccionar">Ciencias Sociales y Ciencias del Comportamiento</option>
+                    <option value="seleccionar">Periodismo e Información</option>
+                </select>
+            </div>
+    
+            <div id="descripcionRevista">
+                <label for="descripcion">Descripción de la revista (100 palabras):</label>
+                <textarea id="descripcion" rows="4" cols="50"></textarea>
+                <span id="descripcionError" class="error"></span>
+            </div>
+    
+            <div id="archivoRevista">
+                <label for="archivo">Subir archivo de la revista:</label>
+                <input type="file" id="archivo" accept=".pdf, .doc, .docx">
+            </div>
+            <span id="archivoError" class="error"></span>
+    
+            <div id="imagenRevista">
+                <label for="imagen">Subir imagen de la revista:</label>
+                <input type="file" id="imagen" accept="image/*">
+            </div>
+            <span id="imagenError" class="error"></span>
+    
+            <button class="cta-button" type="submit">Crear Revista</button>
+        </form>
+    </div>
+
+    <script>
+        function mostrarSubareas() {
+            // Obtener el valor seleccionado en el área de conocimiento
+            var areaConocimiento = document.getElementById("areaConocimiento").value;
+    
+            // Ocultar todas las subáreas
+            var subareas = document.getElementsByClassName("subarea");
+            for (var i = 0; i < subareas.length; i++) {
+                subareas[i].style.display = "none";
+            }
+    
+            // Mostrar la subárea correspondiente
+            if (areaConocimiento !== "seleccionar") {
+                var subarea = document.getElementById(areaConocimiento + "Subarea");
+                subarea.style.display = "block";
+            }
+        }
+
+        function validarFormulario() {
+            
+            var nombreRevista = document.getElementById("nombreRevista");
+            var areaConocimiento = document.getElementById("areaConocimiento");
+            var descripcion = document.getElementById("descripcion");
+            var archivo = document.getElementById("archivo");
+            var imagen = document.getElementById("imagen");
+    
+            
+            var nombreRevistaError = document.getElementById("nombreRevistaError");
+            var areaConocimientoError = document.getElementById("areaConocimientoError");
+            var descripcionError = document.getElementById("descripcionError");
+            var archivoError = document.getElementById("archivoError");
+            var imagenError = document.getElementById("imagenError");
+
+         
+            nombreRevistaError.textContent = "";
+            areaConocimientoError.textContent = "";
+            descripcionError.textContent = "";
+            archivoError.textContent = "";
+            imagenError.textContent = "";
+
+        
+            if (nombreRevista.value.length > 10) {
+                nombreRevistaError.textContent = "El nombre debe tener un máximo de 10 caracteres.";
+                return false;
+            }
+
+          
+            if (areaConocimiento.value === "seleccionar") {
+                areaConocimientoError.textContent = "Seleccione un área de conocimiento.";
+                return false;
+            }
+
+            if (descripcion.value.trim() === "") {
+                descripcionError.textContent = "Ingrese la descripción.";
+                return false;
+            }
+
+            
+            if (archivo.files.length === 0) {
+                archivoError.textContent = "No hay archivo";
+                return false;
+            }
+
+            if (imagen.files.length === 0) {
+                imagenError.textContent = "No hay archivo";
+                return false;
+            }
+
+            alert("Formulario válido. Enviando datos.");
+
+            return true; 
+        }
+    </script>
+</body>
+</html>
